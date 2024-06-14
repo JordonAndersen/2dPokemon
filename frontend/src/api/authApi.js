@@ -13,7 +13,7 @@ async function basicFetch(url, payload) {
       },
       body: JSON.stringify(context)
     }
-    const body = await basicFetch("http://localhost:8000/api/accounts/signup",payload)
+    const body = await basicFetch("http://localhost:80/api/accounts/signup",payload)
     return body
   }
   
@@ -25,7 +25,7 @@ async function basicFetch(url, payload) {
       },
       body: JSON.stringify(context)
     }
-    const body = await basicFetch("http://localhost:8000/api/accounts/get-token", payload)
+    const body = await basicFetch("http://localhost:80/api/accounts/get-token", payload)
     return body.token
   }
   
@@ -36,6 +36,6 @@ async function basicFetch(url, payload) {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`
       }  }
-    const body = await basicFetch("http://localhost:8000/api/pokemon", payload)
+    const body = await basicFetch("http://localhost:80/api/pokemon", payload)
     return body.result
   }
