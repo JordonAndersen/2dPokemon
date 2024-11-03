@@ -66,7 +66,7 @@ const Canvas = (props) => {
     <div style={{ position: "relative" }}>
       <canvas ref={ref} {...rest} />
       <Player x={playerX} y={playerY} size={40} imageSrc={playerImage} /> {/* Player component */}
-      <Pokemon pokemonName="pikachu" /> {/* PokemonFetcher component */}
+      <Pokemon pokemonName="pikachu"   /> {/* PokemonFetcher component */}
     </div>
   );
 };

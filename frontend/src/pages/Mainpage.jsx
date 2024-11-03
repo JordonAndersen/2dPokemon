@@ -21,12 +21,12 @@ export default function Mainpage() {
               <div className='ball'>
                 <div className="ballcontainer">
 
-                  <div class="pokieball">
-                    <div class="halfred">
-                      <div class="line">
-                        <div class="darkcircleslightlycirclesml">
-                          <div class="slightlycirclesml">
-                            <div class="innercirclesml">
+                  <div className="pokieball">
+                    <div className="halfred">
+                      <div className="line">
+                        <div className="darkcircleslightlycirclesml">
+                          <div className="slightlycirclesml">
+                            <div className="innercirclesml">
                            
                             </div>
                           </div>

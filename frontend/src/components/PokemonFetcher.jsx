@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './pokemonsprite.css'
 
 const Pokemon = () => {
   const [pokeImage, setPokeImage] = useState(null); // Store Pokemon image URL
@@ -33,7 +34,7 @@ const Pokemon = () => {
 
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m`
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=is_day,precipitation,rain,showers,snowfall&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=1`
         );
         if (!response.ok) {
           throw new Error(
@@ -45,16 +46,51 @@ const Pokemon = () => {
 
         // Example logic to determine Pokemon based on weather data
         let pokemonName;
-        const temperature = data.hourly.temperature_2m[0].value; // Assuming you want the first hourly temperature
-        console.log("Current temperature:", temperature);
+        const issnow = data.current.snowfall
+        console.log(issnow);
+        const israining = data.current.rain
+        console.log(israining);
+        const isshowering = data.current.showers
+        console.log(isshowering);
+        // const temperature = data.hourly.temperature_2m[0].value;
+        // console.log("Current temperature:", temperature);
 
-        if (temperature < 10) {
-          pokemonName = "lapras"; // Cold weather example
-        } else if (temperature >= 10 && temperature <= 20) {
-          pokemonName = "squirtle"; // Moderate weather example
-        } else {
-          pokemonName = "charmander"; // Hot weather example
+        if (israining > 0) {
+          console.log("its Raining")
+          pokemonName = "lapras"
+
         }
+        else if (issnow > 0) {
+          console.log("its snowing")
+          pokemonName = "spheal"
+
+        }
+        else if (isshowering > 0) {
+          console.log("its showering")
+          pokemonName = "squirtle"
+
+        }
+        else {
+          pokemonName = "spheal"
+
+        }
+
+        // if (temperature < 10) {
+        //   pokemonName = "lapras"; // Cold weather example
+        // } else if (temperature >= 10 && temperature <= 20) {
+        //   pokemonName = "squirtle"; // Moderate weather example
+        // } else {
+        //   pokemonName = "charmander"; // Hot weather example
+        // }
+
+        const n = 1000; // Replace with the desired range, e.g., length of Pokémon list
+        const randomNum = Math.floor(Math.random() * n);
+
+        const pokemonRandom = await fetch(
+          `https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0`
+        );
+
+        console.log("pokemon random", pokemonRandom)
 
         // Fetch Pokemon data based on determined Pokemon name
         const pokemonResponse = await fetch(
@@ -66,7 +102,8 @@ const Pokemon = () => {
           );
         }
         const pokemonData = await pokemonResponse.json();
-        const imageUrl = pokemonData.sprites.front_default;
+        console.log(pokemonData)
+        const imageUrl = pokemonData.sprites.versions["generation-viii"].icons.front_default;
         console.log("Pokémon image URL:", imageUrl);
         setPokeImage(imageUrl);
       } catch (error) {
@@ -91,7 +128,8 @@ const Pokemon = () => {
     <img
       src={pokeImage}
       alt={`Pokemon`}
-      style={{ position: "absolute", left: 150, top: 150 }}
+      style={{ position: "absolute", left: 150, top: 150, }}
+      className="pokemonimg"
     />
   );
 };
